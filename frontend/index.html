@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frontend</title>
+</head>
+<body>
+    <h1>Hello from Frontend</h1>
+    <div id="message"></div>
+
+    <script>
+        async function fetchMessage() {
+            try {
+                const response = await fetch("http://localhost:5000/api/message");
+                const data = await response.json();
+                document.getElementById("message").innerText = data.message;
+            } catch (error) {
+                document.getElementById("message").innerText = "Error fetching message.";
+            }
+        }
+        fetchMessage();
+    </script>
+</body>
+</html>
