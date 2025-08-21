@@ -1,4 +1,14 @@
 FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# Remove default nginx site
+RUN rm -rf /usr/share/nginx/html/*
+
+WORKDIR /usr/share/nginx/html
+COPY index.html .
+COPY app.js .
+COPY styles.css .
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 8081
+ENTRYPOINT ["/entrypoint.sh"]

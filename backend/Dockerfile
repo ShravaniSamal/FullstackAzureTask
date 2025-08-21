@@ -1,12 +1,8 @@
 FROM python:3.11-slim
-
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py .
 
-COPY . .
-
-# App Service expects containers to listen on 80
-EXPOSE 80
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:80", "app:app"]
-
+EXPOSE 8001
+CMD ["gunicorn", "-b", "0.0.0.0:8001", "app:app"]
